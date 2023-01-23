@@ -1,32 +1,69 @@
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import Header from './assets/components/Header.jsx';
+import NowPlaying from './assets/components/NowPlaying';
+import Home from './assets/components/Home';
+import { Navbar, Nav, Button } from 'react-bootstrap';
+import SpotifyWebApi from 'spotify-web-api-js';
+
+const spotifyApi = new SpotifyWebApi()
+
+const getTokenFromUrl = () => {
+  return window.location.hash
+    .substring(1)
+    .split('&')
+    .reduce((initial, item) =>{
+      let parts = item.split("=");
+      initial[parts[0]] = decodeURIComponent(parts[1]);
+      return initial
+    }, {})
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [spotifyToken, setSpotifyToken] = useState("")
+  const [nowPlaying, setNowPlaying] = useState({})
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [currentPage, setCurrentPage] = useState('Home');
+
+  const renderPage = () => {
+
+    if (currentPage === "Home") {
+      return <Home/>;
+    }
+
+    if (currentPage === "NowPlaying") {
+      return <NowPlaying nowPlaying={nowPlaying} getNowPlaying={getNowPlaying}/>;
+    }
+
+  };
+
+  useEffect(() => {
+    const spotifyToken = getTokenFromUrl().access_token
+    window.location.hash = ""
+    console.log("This is our spotify Token", spotifyToken)
+
+    if(spotifyToken){
+      setSpotifyToken(spotifyToken)
+      spotifyApi.setAccessToken(spotifyToken)
+      setLoggedIn(true)
+    }
+  })
+
+  const getNowPlaying = () => {
+    spotifyApi.getMyCurrentPlaybackState().then((response) => {
+      console.log(response)
+      setNowPlaying({
+        title: response.item.name,
+        albumArt: response.item.album.images[0].url
+      })
+    })
+  }
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+          <Header loggedIn={loggedIn} setCurrentPage={setCurrentPage}></Header>
+          {renderPage()}
     </div>
   )
 }
