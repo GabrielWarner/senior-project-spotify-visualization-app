@@ -6,10 +6,14 @@ function Header({loggedIn, setCurrentPage}) {
   return (
     <div>
     <h1>SPOTIFY AUDIO ANALYSIS TOOL</h1>
-      <Button onClick={() => setCurrentPage("Home")}>HOME</Button>
-      <Button>AUDIO ANALYSIS</Button>
-      <Button onClick={() => setCurrentPage("NowPlaying")}>CURRENT TRACK</Button>
-      <Button>TOP ARTIST</Button>
+    {loggedIn &&
+          <>
+          <Button onClick={() => setCurrentPage("Home")}>HOME</Button>
+          <Button onClick={() => setCurrentPage("Analysis")}>AUDIO ANALYSIS</Button>
+          <Button onClick={() => setCurrentPage("NowPlaying")}>CURRENT TRACK</Button>
+          <Button>TOP ARTIST</Button>
+          </>
+    }
       {!loggedIn && <Button href='http://localhost:8888'>LOGIN WITH SPOTIFY</Button>}
     </div>
   );

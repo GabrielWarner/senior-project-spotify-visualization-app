@@ -3,7 +3,7 @@ import '../styles/home.css';
 function Home({nowPlaying, getNowPlaying}) {
   return (
     <>
-            <div>Hello</div>
+            <div>This application was built to help audio engineers and producers analyze music from the spotify library.</div>
     </>
   );
 }
