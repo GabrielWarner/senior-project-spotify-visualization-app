@@ -1,3 +1,4 @@
+import TopArtistGrid from "./TopArtistGrid";
 import React, { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
@@ -66,6 +67,7 @@ function TopArtist({ topArtists }) {
 
   return (
     <div>
+      <TopArtistGrid topArtists={topArtists}/>
       <Bar data={data} options={options} />
     </div>
   );

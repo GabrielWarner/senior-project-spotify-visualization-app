@@ -6,6 +6,7 @@ import NowPlaying from "./assets/components/NowPlaying";
 import Home from "./assets/components/Home";
 import Analysis from "./assets/components/Analysis";
 import TopArtist from "./assets/components/TopArtist";
+import TopTracks from "./assets/components/TopTracks";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-js";
 
@@ -34,7 +35,8 @@ function App() {
   const [nowPlaying, setNowPlaying] = useState({});
   //TOP ARTISTS states
   const [topArtists, setTopArtists] = useState({});
-
+  //TOP TRACKS states
+  const [topTracks, setTopTracks] = useState({});
   useEffect(() => {
     const spotifyToken = getTokenFromUrl().access_token;
     window.location.hash = "";
@@ -47,10 +49,14 @@ function App() {
       spotifyApi
         .getMyTopArtists({ limit: 10 })
         .then((data) => {
-          console.log(data);
           setTopArtists(data);
         })
         .catch((error) => console.error(error));
+      spotifyApi
+        .getMyTopTracks({ limit: 10 })
+        .then((data) => {
+          setTopTracks(data)
+        })
     }
   });
 
@@ -109,6 +115,10 @@ function App() {
 
     if (currentPage === "TopArtist") {
       return <TopArtist topArtists={topArtists} />;
+    }
+
+    if (currentPage === "TopTracks") {
+      return <TopTracks topTracks={topTracks} />;
     }
   };
 
