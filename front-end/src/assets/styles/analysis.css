@@ -1,0 +1,16 @@
+
+.analysis-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.analysis-feature {
+  width: 25%;
+  border: 1px solid gray;
+  padding: 10px;
+  margin: 10px;
+}
+
+.feature-name {
+  font-weight: bold;
+}

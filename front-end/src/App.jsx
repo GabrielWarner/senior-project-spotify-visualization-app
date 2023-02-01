@@ -31,6 +31,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [trackId, setTrackId] = useState("");
   const [audioAnalysis, setAudioAnalysis] = useState({});
+  const [track, setTrack] = useState({});
   //CURRENT TRACK states
   const [nowPlaying, setNowPlaying] = useState({});
   //TOP ARTISTS states
@@ -61,12 +62,10 @@ function App() {
   });
 
   useEffect(() => {
-    if (trackId) {
       spotifyApi
-        .getAudioAnalysisForTrack(trackId)
-        .then((data) => setAudioAnalysis(data))
+        .getAudioFeaturesForTrack(trackId)
+        .then((data) => (setAudioAnalysis(data), console.log(data)))
         .catch((error) => console.error(error));
-    }
   }, [trackId]);
 
   async function handleSearch(event) {
@@ -75,6 +74,11 @@ function App() {
       const searchResults = await spotifyApi.searchTracks(searchQuery);
       const firstTrackId = searchResults.tracks.items[0].id;
       setTrackId(firstTrackId);
+      const track = searchResults.tracks.items[0]
+      setTrack(track)
+      console.log(track)
+      // const getAudioFeaturesForTrack = await spotifyApi.getAudioFeaturesForTrack(trackId)
+      // setAudioAnalysis(getAudioFeaturesForTrack)
     } catch (error) {
       console.error(error);
     }
@@ -109,6 +113,7 @@ function App() {
           setSearchQuery={setSearchQuery}
           trackId={trackId}
           audioAnalysis={audioAnalysis}
+          track={track}
         />
       );
     }
