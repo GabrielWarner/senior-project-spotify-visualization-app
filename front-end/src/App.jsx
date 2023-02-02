@@ -48,15 +48,16 @@ function App() {
       spotifyApi.setAccessToken(spotifyToken);
       setLoggedIn(true);
       spotifyApi
-        .getMyTopArtists({ limit: 10 })
+        .getMyTopArtists({ limit: 10, time_range:"long_term", })
         .then((data) => {
           setTopArtists(data);
         })
         .catch((error) => console.error(error));
       spotifyApi
-        .getMyTopTracks({ limit: 10 })
+        .getMyTopTracks({ limit: 10, time_range:"long_term", })
         .then((data) => {
           setTopTracks(data)
+          console.log(data)
         })
     }
   });

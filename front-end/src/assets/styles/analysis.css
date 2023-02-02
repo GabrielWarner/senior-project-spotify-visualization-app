@@ -2,6 +2,7 @@
 .analysis-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .analysis-feature {

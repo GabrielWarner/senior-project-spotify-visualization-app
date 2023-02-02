@@ -27,7 +27,7 @@ function TopTrack({ topTracks }) {
       ),
       datasets: [
         {
-          label: "Track Follower Count",
+          label: "Spotify Popularity Rating (0-100)",
           data: topTracks.items.map((track) => track.popularity),
           backgroundColor: "rgba(29, 185, 84, 0.2)",
           borderColor: "rgba(29, 185, 84, 1)",
@@ -66,6 +66,8 @@ function TopTrack({ topTracks }) {
       <div>
         <TopItemGrid topTracks={topTracks}/>
         <Bar data={data} options={options} />
+        <p>Spotify's popularity rating is a score that reflects the popularity of an artist, album, or track on the platform. The rating is calculated using a proprietary algorithm that takes into account several factors, such as the number of plays, saves, and shares, as well as the velocity of these activities. The popularity rating ranges from 0 to 100, with 100 being the highest and most popular. The score is updated in real-time and can change frequently based on user behavior.</p>
+
       </div>
     );
   }
