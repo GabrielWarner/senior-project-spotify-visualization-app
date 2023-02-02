@@ -20,6 +20,8 @@ ChartJS.register(
   zoomPlugin
 );
 
+ChartJS.defaults.color = 'rgba(255,255,255, .9)';
+
 function TopArtist({ topArtists }) {
   const data = {
     labels: topArtists.items.map(
@@ -38,31 +40,46 @@ function TopArtist({ topArtists }) {
 
   const options = {
     indexAxis: "y",
-    x: {
-
-    },
     plugins: {
-    zoom: {
-        zoom: {
-            wheel: {
+      zoom: {
+          zoom: {
+              wheel: {
+                enabled: true,
+              },
+              pinch: {
+                enabled: false,
+              },
+              mode: "x",
+              drag: {
+                enabled: false,
+              },
+            },
+            limits: {
+              x: {min: 'original', max: 'original', minRange: 100000},
+            },
+            pan: {
               enabled: true,
-            },
-            pinch: {
-              enabled: false,
-            },
-            mode: "x",
-            drag: {
-              enabled: false,
-            },
-          },
-          limits: {
-            x: {min: 'original', max: 'original', minRange: 100000},
-          },
-          pan: {
-            enabled: true,
-          }
-    }
+            }
+      }
     },
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            fontSize: 14,
+            fontColor: "rgba(255, 255, 255, 0.7)"
+          }
+        }
+      ],
+      yAxes: [
+        {
+          ticks: {
+            fontSize: 14,
+            fontColor: "rgba(255, 255, 255, 0.7)"
+          }
+        }
+      ]
+    }
   };
 
   return (

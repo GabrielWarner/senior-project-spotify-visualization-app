@@ -4,7 +4,7 @@ function TopArtistsGrid({ topArtists }) {
         {topArtists.items.slice(0, 10).map((artist, index) => (
           <div key={artist.id} style={{ textAlign: "center", padding: "20px" }}>
             <h3>{index + 1}</h3>
-            <img src={artist.images[2].url} alt={artist.name} />
+            <img src={artist.images[2].url} alt={artist.name} width="64" height="64"/>
             <p>{artist.name}</p>
             <p>Followers: {artist.followers.total.toLocaleString()}</p>
           </div>

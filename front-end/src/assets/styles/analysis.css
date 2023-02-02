@@ -14,3 +14,10 @@
 .feature-name {
   font-weight: bold;
 }
+
+.submit{
+    background-color: #1DB954;
+    /* border: 1px solid black; */
+    color: white;
+
+}

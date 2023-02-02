@@ -1,0 +1,47 @@
+.now-playing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .now-playing-text {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .album-art-container {
+    height: 200px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .album-art-outline {
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .album-art {
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .not-playing-text {
+    font-size: 20px;
+  }
+  
+  .check-now-playing-button {
+    padding: 10px 20px;
+    background-color: #1DB954;
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+  }
+  
