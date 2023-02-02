@@ -10,7 +10,6 @@
     font-weight: 400;
   
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
   
     font-synthesis: none;
@@ -20,6 +19,27 @@
     -webkit-text-size-adjust: 100%;
   }
   
+  .container{
+    padding: 10rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .title{
+    color:white;
+    margin: 0;
+    size: 10rem;
+  }
+
+.login_button{
+  display: flex;
+  justify-content: center;
+  color: #1DB954;
+}
+
+  body{
+    background-color: #242424;
+  }
   
   @keyframes logo-spin {
     from {
