@@ -7,8 +7,11 @@ import Home from "./assets/components/Home";
 import Analysis from "./assets/components/Analysis";
 import TopArtist from "./assets/components/TopArtist";
 import TopTracks from "./assets/components/TopTracks";
+import LastFiftySaved from "./assets/components/LastFiftySaved";
+// import SavedTracks from "./assets/components/SavedTracks";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-js";
+import topTenArtists from "./data/topTenArtists.json"
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -38,12 +41,17 @@ function App() {
   const [topArtists, setTopArtists] = useState({});
   //TOP TRACKS states
   const [topTracks, setTopTracks] = useState({});
+  //LAST 50 SAVED TRACKS
+  const [savedTracks, setSavedTracks] = useState({})
   useEffect(() => {
     const spotifyToken = getTokenFromUrl().access_token;
     window.location.hash = "";
-    console.log("This is our spotify Token", spotifyToken);
-
     if (spotifyToken) {
+      async function getSavedTracks() {
+        const result = await spotifyApi.getMySavedTracks({ limit: 50 });
+        setSavedTracks(result.items);
+        console.log(result.items)
+      }
       setSpotifyToken(spotifyToken);
       spotifyApi.setAccessToken(spotifyToken);
       setLoggedIn(true);
@@ -57,10 +65,20 @@ function App() {
         .getMyTopTracks({ limit: 10, time_range:"long_term", })
         .then((data) => {
           setTopTracks(data)
-          console.log(data)
         })
+      getSavedTracks()
+      saveData()
     }
   });
+
+
+  async function saveData() {
+    // Make a request to the Spotify API
+    const response = await spotifyApi.getAlbum('7ycBtnsMtyVbbwTfJwRjSP');
+  
+    // Save the data to the local storage
+    localStorage.setItem('albumData', JSON.stringify(response));
+  }
 
   useEffect(() => {
       spotifyApi
@@ -68,6 +86,7 @@ function App() {
         .then((data) => (setAudioAnalysis(data), console.log(data)))
         .catch((error) => console.error(error));
   }, [trackId]);
+
 
   async function handleSearch(event) {
     event.preventDefault();
@@ -125,6 +144,10 @@ function App() {
 
     if (currentPage === "TopTracks") {
       return <TopTracks topTracks={topTracks} />;
+    }
+
+    if (currentPage === "LastFiftySaved") {
+      return <LastFiftySaved savedTracks={savedTracks}/>;
     }
   };
 

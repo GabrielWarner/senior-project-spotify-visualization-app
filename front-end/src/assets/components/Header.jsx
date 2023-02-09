@@ -13,6 +13,7 @@ function Header({loggedIn, setCurrentPage}) {
           <Button onClick={() => setCurrentPage("NowPlaying")}>CURRENT TRACK</Button>
           <Button onClick={() => [setCurrentPage("TopArtist")]}>TOP ARTIST</Button>
           <Button onClick={() => [setCurrentPage("TopTracks")]}>TOP TRACKS</Button>
+          <Button onClick={() => [setCurrentPage("LastFiftySaved")]}>LAST 50 SAVED</Button>
           </>
     }
       {!loggedIn && <Button href='http://localhost:8888'>LOGIN WITH SPOTIFY</Button>}
