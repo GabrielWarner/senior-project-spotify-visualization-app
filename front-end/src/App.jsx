@@ -8,6 +8,7 @@ import Analysis from "./assets/components/Analysis";
 import TopArtist from "./assets/components/TopArtist";
 import TopTracks from "./assets/components/TopTracks";
 import LastFiftySaved from "./assets/components/LastFiftySaved";
+import Top10 from "./assets/components/Top10"
 // import SavedTracks from "./assets/components/SavedTracks";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-js";
@@ -43,6 +44,8 @@ function App() {
   const [topTracks, setTopTracks] = useState({});
   //LAST 50 SAVED TRACKS
   const [savedTracks, setSavedTracks] = useState({})
+  //TOP 10 PAGE
+
   useEffect(() => {
     const spotifyToken = getTokenFromUrl().access_token;
     window.location.hash = "";
@@ -148,6 +151,10 @@ function App() {
 
     if (currentPage === "LastFiftySaved") {
       return <LastFiftySaved savedTracks={savedTracks}/>;
+    }
+
+    if (currentPage === "Top10") {
+      return <Top10/>;
     }
   };
 

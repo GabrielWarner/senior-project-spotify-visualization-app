@@ -11,9 +11,10 @@ function Header({loggedIn, setCurrentPage}) {
           <Button onClick={() => setCurrentPage("Home")}>HOME</Button>
           <Button onClick={() => setCurrentPage("Analysis")}>AUDIO ANALYSIS</Button>
           <Button onClick={() => setCurrentPage("NowPlaying")}>CURRENT TRACK</Button>
-          <Button onClick={() => [setCurrentPage("TopArtist")]}>TOP ARTIST</Button>
+          <Button onClick={() => [setCurrentPage("TopArtist")]}>MY TOP ARTIST</Button>
           <Button onClick={() => [setCurrentPage("TopTracks")]}>TOP TRACKS</Button>
           <Button onClick={() => [setCurrentPage("LastFiftySaved")]}>LAST 50 SAVED</Button>
+          <Button onClick={() => [setCurrentPage("Top10")]}>SPOTIFY TOP 10</Button>
           </>
     }
       {!loggedIn && <Button href='http://localhost:8888'>LOGIN WITH SPOTIFY</Button>}
