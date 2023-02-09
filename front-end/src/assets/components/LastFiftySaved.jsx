@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import "../styles/lastfiftysaved.css";
 import { Bar } from 'react-chartjs-2'
 const LastFiftySaved = ({ savedTracks }) => {
+  const [graphType, setGraphType] = useState("total");
   const songCountByMonth = {};
   
   savedTracks.forEach(track => {
@@ -28,7 +29,47 @@ const LastFiftySaved = ({ savedTracks }) => {
       }
     ]
   };
+
+  const songCountByMonthExplicitFilter = {};
+
+  savedTracks.forEach(track => {
+    const month = new Date(track.added_at).toLocaleString('default', { month: 'short' });
+    const year = new Date(track.added_at).getFullYear();
+    if (!songCountByMonthExplicitFilter[`${month} ${year}`]) {
+      songCountByMonthExplicitFilter[`${month} ${year}`] = { explicit: 0, notExplicit: 0 };
+    }
+    if (track.track.explicit) {
+      songCountByMonthExplicitFilter[`${month} ${year}`].explicit++;
+    } else {
+      songCountByMonthExplicitFilter[`${month} ${year}`].notExplicit++;
+    }
+  });
   
+  const chartDataExplcit = {
+    labels: Object.keys(songCountByMonthExplicitFilter),
+    datasets: [
+      {
+        label: 'Explicit',
+        backgroundColor: 'rgba(29, 185, 84, 0.2)',
+        borderColor: 'rgba(29, 185, 84, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(29, 185, 84, 0.4)',
+        hoverBorderColor: 'rgba(29, 185, 84, 0.2)',
+        data: Object.keys(songCountByMonthExplicitFilter).map(key => songCountByMonthExplicitFilter[key].explicit)
+      },
+      {
+        label: 'Clean',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(255, 99, 132, 0.4)',
+        hoverBorderColor: 'rgba(255, 99, 132, 0.2)',
+        data: Object.keys(songCountByMonthExplicitFilter).map(key => songCountByMonthExplicitFilter[key].notExplicit)
+      }
+    ]
+  };
+  
+
   return (
     <>
     <p>Here is last 50 songs you saved:</p>
@@ -44,12 +85,25 @@ const LastFiftySaved = ({ savedTracks }) => {
       })}
     </div>
     <p>The amount of songs you have added each month:</p>
-    <Bar
-      data={chartData}
-      width={100}
-      height={50}
-      options={{ maintainAspectRatio: true }}
-    />
+    <select onChange={e => setGraphType(e.target.value)}>
+      <option value="total">Total</option>
+      <option value="explicit">Explicit vs Clean</option>
+    </select>
+    {graphType === 'total' ? (
+      <Bar
+        data={chartData}
+        width={100}
+        height={50}
+        options={{ maintainAspectRatio: true }}
+      />
+    ) : (
+      <Bar
+        data={chartDataExplcit}
+        width={100}
+        height={50}
+        options={{ maintainAspectRatio: true }}
+      />
+    )}
     </>
   )
 }
