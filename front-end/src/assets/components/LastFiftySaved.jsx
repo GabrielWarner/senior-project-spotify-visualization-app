@@ -50,23 +50,44 @@ const LastFiftySaved = ({ savedTracks }) => {
     datasets: [
       {
         label: 'Explicit',
-        backgroundColor: 'rgba(29, 185, 84, 0.2)',
-        borderColor: 'rgba(29, 185, 84, 1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(29, 185, 84, 0.4)',
-        hoverBorderColor: 'rgba(29, 185, 84, 0.2)',
-        data: Object.keys(songCountByMonthExplicitFilter).map(key => songCountByMonthExplicitFilter[key].explicit)
-      },
-      {
-        label: 'Clean',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(255, 99, 132, 0.4)',
         hoverBorderColor: 'rgba(255, 99, 132, 0.2)',
+        data: Object.keys(songCountByMonthExplicitFilter).map(key => songCountByMonthExplicitFilter[key].explicit)
+      },
+      {
+        label: 'Clean',
+        backgroundColor: 'rgba(29, 185, 84, 0.2)',
+        borderColor: 'rgba(29, 185, 84, 1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(29, 185, 84, 0.4)',
+        hoverBorderColor: 'rgba(29, 185, 84, 0.2)',
         data: Object.keys(songCountByMonthExplicitFilter).map(key => songCountByMonthExplicitFilter[key].notExplicit)
       }
     ]
+  };
+
+  const options = {
+    maintainAspectRatio: true,
+    indexAxis: "x",
+    scales: {
+      x: {
+        ticks: {
+          font: {
+            size: 16
+          }
+        }
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 16
+          }
+        }
+      },
+    }
   };
   
 
@@ -94,14 +115,14 @@ const LastFiftySaved = ({ savedTracks }) => {
         data={chartData}
         width={100}
         height={50}
-        options={{ maintainAspectRatio: true }}
+        options={options}
       />
     ) : (
       <Bar
         data={chartDataExplcit}
         width={100}
         height={50}
-        options={{ maintainAspectRatio: true }}
+        options={options}
       />
     )}
     </>

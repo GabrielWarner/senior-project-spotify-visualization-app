@@ -60,6 +60,22 @@ function TopTrack({ topTracks }) {
             }
       }
       },
+      scales: {
+        x: {
+          ticks: {
+            font: {
+              size: 16
+            }
+          }
+        },
+        y: {
+          ticks: {
+            font: {
+              size: 16
+            }
+          }
+        },
+      }
     };
   
     return (

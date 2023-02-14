@@ -25,7 +25,7 @@ ChartJS.defaults.color = 'rgba(255,255,255, .9)';
 function TopArtist({ topArtists }) {
   const data = {
     labels: topArtists.items.map(
-      (artist, index) => `${index + 1}:${artist.name} (${artist.popularity})`
+      (artist, index) => `${index + 1}: ${artist.name} (${artist.popularity})`
     ),
     datasets: [
       {
@@ -63,22 +63,20 @@ function TopArtist({ topArtists }) {
       }
     },
     scales: {
-      xAxes: [
-        {
-          ticks: {
-            fontSize: 14,
-            fontColor: "rgba(255, 255, 255, 0.7)"
+      x: {
+        ticks: {
+          font: {
+            size: 16
           }
         }
-      ],
-      yAxes: [
-        {
-          ticks: {
-            fontSize: 14,
-            fontColor: "rgba(255, 255, 255, 0.7)"
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 16
           }
         }
-      ]
+      },
     }
   };
 

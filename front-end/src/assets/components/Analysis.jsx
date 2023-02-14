@@ -1,6 +1,90 @@
 import '../styles/analysis.css';
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Radar } from 'react-chartjs-2';
+ChartJS.register(
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend
+);
 function Analysis({handleSearch, searchQuery, setSearchQuery, trackId, audioAnalysis, audioFeatures, track}) {
-
+  const data = {
+    labels: ['Energy', 'Danceability', 'Acousticness', 'Valence', 'Speechiness', 'Liveness', 'Instrumentalness'],
+    datasets: [
+      {
+        label: 'Track Audio Features',
+        data: [
+          audioFeatures.energy,
+          audioFeatures.danceability,
+          audioFeatures.acousticness,
+          audioFeatures.valence,
+          audioFeatures.speechiness,
+          audioFeatures.liveness,
+          audioFeatures.instrumentalness
+        ],
+        backgroundColor: 'rgba(29, 185, 84, 0.2)',
+        borderColor: 'rgba(29, 185, 84, 1)',
+        borderWidth: 1
+      }
+    ]
+  }
+  const options ={
+    responsive: true,
+    maintainAspectRatio: true,
+    width: 200,
+    height: 200,
+    scale: {
+      ticks: {
+        min: 0,
+        max: 1,
+        display: false,
+      },
+      pointLabels: {
+        fontSize: 14,
+      }
+    },
+    plugins: {
+      legend: {
+          labels: {
+              // This more specific font property overrides the global property
+              font: {
+                  size: 15
+              }
+          }
+      }
+  },
+  scales: {
+    r: {
+      ticks:{
+        color: 'black'
+      },
+      angleLines: {
+        display: true,
+        color: 'black'
+      },
+      suggestedMin: 0,
+      suggestedMax: 1,
+      pointLabels: {
+        font:{
+          size: 20
+        }
+      },
+      grid:{
+        color:'black'
+      }
+    },
+  }
+  }
   return (
     <>
       <div>Search for a tracks audio analysis and features</div>
@@ -84,7 +168,11 @@ function Analysis({handleSearch, searchQuery, setSearchQuery, trackId, audioAnal
           </div>
         </div>
       )}
-      
+      {audioFeatures && 
+      <div className='radar_container'>
+      <Radar data={data} options={options}/>
+      </div>
+      }
     </>
   );
 }
