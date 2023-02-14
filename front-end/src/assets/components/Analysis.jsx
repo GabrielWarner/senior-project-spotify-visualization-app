@@ -101,7 +101,7 @@ function Analysis({handleSearch, searchQuery, setSearchQuery, trackId, audioAnal
       {track && track.artists && track.artists[0] && track.artists[0].name && <h3>Artist: {track.artists[0].name}</h3>}
       {track && track.album && track.album.images && track.album.images[1] && track.album.images[1].url && <img src={track.album.images[1].url} alt="Track Image"></img>}
       {audioFeatures && (
-        <div>
+        <div className='analysis-page'>
           <p>Audio Features:</p>
           <div className="analysis-container">
 
@@ -133,7 +133,6 @@ function Analysis({handleSearch, searchQuery, setSearchQuery, trackId, audioAnal
               <p className="feature-name">Mode:</p>
               <p className="feature-value">{audioFeatures.mode}</p>
               <p>The modality (major or minor) of a track, the type of scale from which its melodic content is derived.</p>
-
             </div>
 
             <div className="analysis-feature">
@@ -166,13 +165,12 @@ function Analysis({handleSearch, searchQuery, setSearchQuery, trackId, audioAnal
               <p>A value from 0.0 to 1.0 that represents the musical positiveness conveyed by a track, with 1.0 being the most positive.</p>
             </div>
           </div>
+          <div className='radar_container'>
+            <Radar data={data} options={options}/>
+          </div>
         </div>
+        
       )}
-      {audioFeatures && 
-      <div className='radar_container'>
-      <Radar data={data} options={options}/>
-      </div>
-      }
     </>
   );
 }

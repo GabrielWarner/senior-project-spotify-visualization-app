@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import React, { useState, useEffect } from "react";
 import "../styles/lastfiftysaved.css";
 import { Bar } from 'react-chartjs-2'
@@ -53,8 +55,7 @@ const LastFiftySaved = ({ savedTracks }) => {
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 1,
-        hoverBackgroundColor: 'rgba(255, 99, 132, 0.4)',
-        hoverBorderColor: 'rgba(255, 99, 132, 0.2)',
+
         data: Object.keys(songCountByMonthExplicitFilter).map(key => songCountByMonthExplicitFilter[key].explicit)
       },
       {
@@ -90,21 +91,55 @@ const LastFiftySaved = ({ savedTracks }) => {
     }
   };
   
+  const Container = styled.div`
+  display: flex;
+  overflow-x: scroll;
+  width: 100%;
+`;
+
+const Card = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+`;
+
+const Image = styled.img`
+  width: 150px;
+  height: 150px;
+`;
+
+const Title = styled.p`
+  margin-top: 10px;
+`;
+
+const Subtitle = styled.p`
+  margin-top: 5px;
+  font-size: 0.8em;
+`;
+
+const variants = {
+  hidden: { opacity: 0, y: -50 },
+  visible: { opacity: 1, y: 0 },
+};
 
   return (
     <>
-    <p>Here is last 50 songs you saved:</p>
-    <div style={{ display: 'flex', overflowX: 'scroll', width: '100%' }}>
-      {savedTracks.map((track, index) => {
-        return (
-          <div className='card' key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px', }}>
-            <img src={track.track.album.images[0].url} alt={track.name} style={{ width: 150, height: 150 }} />
-            <p className='card_text' style={{ marginTop: 10 }}>{track.track.name} by: {track.track.artists[0].name}</p>
-            <p className='card_text' style={{ marginTop: 5, fontSize: '0.8em' }}>Added: {new Date(track.added_at).toDateString()}</p>
-          </div>
-        )
-      })}
-    </div>
+    <p>Here are the last 50 songs you saved:</p>
+      <Container>
+        {savedTracks.map((track, index) => (
+          <Card
+            key={index}
+            variants={variants}
+            initial="hidden"
+            animate="visible"
+          >
+            <Image src={track.track.album.images[0].url} alt={track.name} />
+            <Title>{track.track.name} by: {track.track.artists[0].name}</Title>
+            <Subtitle>Added: {new Date(track.added_at).toDateString()}</Subtitle>
+          </Card>
+        ))}
+      </Container>
     <p>The amount of songs you have added each month:</p>
     <select onChange={e => setGraphType(e.target.value)}>
       <option value="total">Total</option>
