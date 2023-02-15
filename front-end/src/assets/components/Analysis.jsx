@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import styled from "styled-components";
 import '../styles/analysis.css';
 import {
   Chart as ChartJS,
@@ -17,6 +19,35 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+const AnalysisContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+`;
+
+const AnalysisFeature = styled.div`
+  width: 33%;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem;
+  background-color: #1DB954;
+  border-radius: 8px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+`;
+
+const FeatureName = styled.p`
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+`;
+
+const FeatureValue = styled.p`
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+`;
+
+const FeatureDescription = styled.p`
+  font-size: 0.8rem;
+`;
 function Analysis({handleSearch, searchQuery, setSearchQuery, trackId, audioAnalysis, audioFeatures, track}) {
   const data = {
     labels: ['Energy', 'Danceability', 'Acousticness', 'Valence', 'Speechiness', 'Liveness', 'Instrumentalness'],
@@ -41,8 +72,6 @@ function Analysis({handleSearch, searchQuery, setSearchQuery, trackId, audioAnal
   const options ={
     responsive: true,
     maintainAspectRatio: true,
-    width: 200,
-    height: 200,
     scale: {
       ticks: {
         min: 0,
@@ -103,68 +132,68 @@ function Analysis({handleSearch, searchQuery, setSearchQuery, trackId, audioAnal
       {audioFeatures && (
         <div className='analysis-page'>
           <p>Audio Features:</p>
-          <div className="analysis-container">
+          <AnalysisContainer className="analysis-container">
 
-            <div className="analysis-feature">
-              <p className="feature-name">Danceability:</p>
-              <p className="feature-value">{audioFeatures.danceability}</p>
-              <p>A value from 0.0 to 1.0 that describes how suitable a track is for dancing, based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity.</p>
-            </div>
+            <AnalysisFeature className="analysis-feature">
+              <FeatureName className="feature-name">Danceability:</FeatureName>
+              <FeatureValue className="feature-value">{audioFeatures.danceability}</FeatureValue>
+              <FeatureDescription>A value from 0.0 to 1.0 that describes how suitable a track is for dancing, based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity.</FeatureDescription>
+            </AnalysisFeature>
 
-            <div className="analysis-feature">
-              <p className="feature-name">Energy:</p>
-              <p className="feature-value">{audioFeatures.energy}</p>
-              <p>A value from 0.0 to 1.0 that represents a perceptual measure of intensity and activity, from relaxed and calm to energetic and loud.</p>
-            </div>
+            <AnalysisFeature className="analysis-feature">
+              <FeatureName className="feature-name">Energy:</FeatureName>
+              <FeatureValue className="feature-value">{audioFeatures.energy}</FeatureValue>
+              <FeatureDescription>A value from 0.0 to 1.0 that represents a perceptual measure of intensity and activity, from relaxed and calm to energetic and loud.</FeatureDescription>
+            </AnalysisFeature>
 
-            <div className="analysis-feature">
-              <p className="feature-name">Key:</p>
-              <p className="feature-value">{audioFeatures.key}</p>
-              <p>The estimated overall key of the track. Integers map to pitches using standard Pitch Class notation.</p>
-            </div>
+            <AnalysisFeature className="analysis-feature">
+              <FeatureName className="feature-name">Key:</FeatureName>
+              <FeatureValue className="feature-value">{audioFeatures.key}</FeatureValue>
+              <FeatureDescription>The estimated overall key of the track. Integers map to pitches using standard Pitch Class notation.</FeatureDescription>
+            </AnalysisFeature>
 
-            <div className="analysis-feature">
-              <p className="feature-name">Loudness:</p>
-              <p className="feature-value">{audioFeatures.loudness}</p>
-              <p>The overall loudness of a track in decibels (dB).</p>
-            </div>
+            <AnalysisFeature className="analysis-feature">
+              <FeatureName className="feature-name">Loudness:</FeatureName>
+              <FeatureValue className="feature-value">{audioFeatures.loudness}</FeatureValue>
+              <FeatureDescription>The overall loudness of a track in decibels (dB).</FeatureDescription>
+            </AnalysisFeature>
 
-            <div className="analysis-feature">
-              <p className="feature-name">Mode:</p>
-              <p className="feature-value">{audioFeatures.mode}</p>
-              <p>The modality (major or minor) of a track, the type of scale from which its melodic content is derived.</p>
-            </div>
+            <AnalysisFeature className="analysis-feature">
+              <FeatureName className="feature-name">Mode:</FeatureName>
+              <FeatureValue className="feature-value">{audioFeatures.mode}</FeatureValue>
+              <FeatureDescription>The modality (major or minor) of a track, the type of scale from which its melodic content is derived.</FeatureDescription>
+            </AnalysisFeature>
 
-            <div className="analysis-feature">
-              <p className="feature-name">Speechiness:</p>
-              <p className="feature-value">{audioFeatures.speechiness}</p>
-              <p>A value from 0.0 to 1.0 that represents the presence of spoken words in a track.</p>
-            </div>
+            <AnalysisFeature className="analysis-feature">
+              <FeatureName className="feature-name">Speechiness:</FeatureName>
+              <FeatureValue className="feature-value">{audioFeatures.speechiness}</FeatureValue>
+              <FeatureDescription>A value from 0.0 to 1.0 that represents the presence of spoken words in a track.</FeatureDescription>
+            </AnalysisFeature>
 
-            <div className="analysis-feature">
-              <p className="feature-name">Acousticness:</p>
-              <p className="feature-value">{audioFeatures.acousticness}</p>
-              <p>A value from 0.0 to 1.0 that describes how acoustic a track is, with 1.0 being the most acoustic.</p>
-            </div>
+            <AnalysisFeature className="analysis-feature">
+              <FeatureName className="feature-name">Acousticness:</FeatureName>
+              <FeatureValue className="feature-value">{audioFeatures.acousticness}</FeatureValue>
+              <FeatureDescription>A value from 0.0 to 1.0 that describes how acoustic a track is, with 1.0 being the most acoustic.</FeatureDescription>
+            </AnalysisFeature>
 
-            <div className="analysis-feature">
-              <p className="feature-name">Instrumentalness:</p>
-              <p className="feature-value">{audioFeatures.instrumentalness}</p>
-              <p>A value from 0.0 to 1.0 that describes the likelihood that the track contains no vocals.</p>
-            </div>
+            <AnalysisFeature className="analysis-feature">
+              <FeatureName className="feature-name">Instrumentalness:</FeatureName>
+              <FeatureValue className="feature-value">{audioFeatures.instrumentalness}</FeatureValue>
+              <FeatureDescription>A value from 0.0 to 1.0 that describes the likelihood that the track contains no vocals.</FeatureDescription>
+            </AnalysisFeature>
 
-            <div className="analysis-feature">
-              <p className="feature-name">Liveness:</p>
-              <p className="feature-value">{audioFeatures.liveness}</p>
-              <p>A value from 0.0 to 1.0 that represents the likelihood that the track was performed live.</p>
-            </div>
+            <AnalysisFeature className="analysis-feature">
+              <FeatureName className="feature-name">Liveness:</FeatureName>
+              <FeatureValue className="feature-value">{audioFeatures.liveness}</FeatureValue>
+              <FeatureDescription>A value from 0.0 to 1.0 that represents the likelihood that the track was performed live.</FeatureDescription>
+            </AnalysisFeature>
 
-            <div className="analysis-feature">
-              <p className="feature-name">Valence:</p>
-              <p className="feature-value">{audioFeatures.valence}</p>
-              <p>A value from 0.0 to 1.0 that represents the musical positiveness conveyed by a track, with 1.0 being the most positive.</p>
-            </div>
-          </div>
+            <AnalysisFeature className="analysis-feature">
+              <FeatureName className="feature-name">Valence:</FeatureName>
+              <FeatureValue className="feature-value">{audioFeatures.valence}</FeatureValue>
+              <FeatureDescription>A value from 0.0 to 1.0 that represents the musical positiveness conveyed by a track, with 1.0 being the most positive.</FeatureDescription>
+            </AnalysisFeature>
+          </AnalysisContainer>
           <div className='radar_container'>
             <Radar data={data} options={options}/>
           </div>

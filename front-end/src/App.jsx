@@ -70,6 +70,7 @@ function App() {
         .then((data) => {
           setTopTracks(data);
         });
+
       getSavedTracks();
       saveData();
     }

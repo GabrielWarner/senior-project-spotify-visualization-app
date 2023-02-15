@@ -4,54 +4,98 @@ import { Bar } from "react-chartjs-2";
 
 function Top10() {
   const [artistsData, setArtistsData] = useState([]);
+  const [selectedGraph, setSelectedGraph] = useState("followers");
 
   useEffect(() => {
-    setArtistsData(topTenArtists.map(artist => ({ name: artist.name, followers: artist.followers.total })));
+    setArtistsData(
+      topTenArtists.map((artist) => ({
+        name: artist.name,
+        followers: artist.followers.total,
+        genres: artist.genres,
+        popularity: artist.popularity
+      }))
+    );
   }, []);
 
   const data = {
-    labels: artistsData.map(artist => artist.name),
-    datasets: [
-      {
-        label: 'Followers',
-        data: artistsData.map(artist => artist.followers),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)'
-        ],
-        borderWidth: 1
-      }
-    ]
+    genres: {
+      labels: artistsData.map((artist) => artist.name),
+      datasets: [
+        {
+          label: "Genres",
+          data: artistsData.map((artist) => artist.genres.length),
+          backgroundColor: ["rgba(29, 185, 84, .2)"],
+          borderColor: ["rgba(29, 185, 84, 1)"],
+          borderWidth: 1,
+        },
+      ],
+    },
+    followers: {
+      labels: artistsData.map((artist) => artist.name),
+      datasets: [
+        {
+          label: "Followers",
+          data: artistsData.map((artist) => artist.followers),
+          backgroundColor: ["rgba(29, 185, 84, .2)"],
+          borderColor: ["rgba(29, 185, 84, 1)"],
+          borderWidth: 1,
+        },
+      ],
+    },
+    rank: {
+      labels: artistsData.map((artist) => artist.name),
+      datasets: [
+        {
+          label: "Spotify Popularity Rank",
+          data: artistsData.map((artist) => artist.popularity),
+          backgroundColor: ["rgba(29, 185, 84, .2)"],
+          borderColor: ["rgba(29, 185, 84, 1)"],
+          borderWidth: 1,
+        },
+      ],
+    },
   };
+
+  const filteredData = data[selectedGraph];
 
   return (
     <div>
+      <div>
+        <label htmlFor="graph-select">Select Graph:</label>
+        <select
+          id="graph-select"
+          onChange={(e) => setSelectedGraph(e.target.value)}
+        >
+          <option value="genres">All Genres</option>
+          <option value="followers">Followers</option>
+          <option value="rank">Ranking</option>
+        </select>
+      </div>
+      <p>Spotifys Top 10 Artists by follow count</p>
       <Bar
-        data={data}
+        data={filteredData}
         width={100}
         height={50}
         options={{
-          maintainAspectRatio: true
+          maintainAspectRatio: true,
+          tooltips: {
+            callbacks: {
+              label: function (tooltipItem, data) {
+                const artistIndex = tooltipItem.index;
+                const artist = artistsData[artistIndex];
+                if (selectedGraph === "genres") {
+                  const genresList = artist.genres
+                    .map((genre) => `- ${genre}`)
+                    .join("\n");
+                  return `All Genres:\n${genresList}`;
+                } else if (selectedGraph === "followers") {
+                  return `${artist.name}: ${artist.followers}`;
+                } else {
+                  return `${artist.name}: #${artist.popularity}`;
+                }
+              },
+            },
+          },
         }}
       />
     </div>
