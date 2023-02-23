@@ -77,7 +77,7 @@ function Top10() {
   const filteredData = data[selectedGraph];
 
   return (
-    <div>
+    <div className="container">
       <div>
         <label htmlFor="graph-select">Select Graph:</label>
         <select
@@ -90,6 +90,7 @@ function Top10() {
         </select>
       </div>
       <p>Spotifys Top 10 Artists by follow count</p>
+      <div className="chart">
       <Bar
         data={filteredData}
         width={100}
@@ -116,6 +117,7 @@ function Top10() {
           },
         }}
       />
+      </div>
     </div>
   );
 }

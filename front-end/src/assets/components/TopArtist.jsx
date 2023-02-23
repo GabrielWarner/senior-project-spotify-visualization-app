@@ -81,9 +81,11 @@ function TopArtist({ topArtists }) {
   };
 
   return (
-    <div>
+    <div className='container'>
       <TopArtistGrid topArtists={topArtists}/>
+      <div className='chart'>
       <Bar data={data} options={options} />
+      </div>
     </div>
   );
 }

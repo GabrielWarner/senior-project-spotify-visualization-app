@@ -125,6 +125,7 @@ const variants = {
 
   return (
     <>
+    <div className='container'></div>
     <p>Here are the last 50 songs you saved:</p>
       <Container>
         {savedTracks.map((track, index) => (
@@ -145,6 +146,7 @@ const variants = {
       <option value="total">Total</option>
       <option value="explicit">Explicit vs Clean</option>
     </select>
+    <div className='chart'>
     {graphType === 'total' ? (
       <Bar
         data={chartData}
@@ -160,6 +162,7 @@ const variants = {
         options={options}
       />
     )}
+    </div>
     </>
   )
 }

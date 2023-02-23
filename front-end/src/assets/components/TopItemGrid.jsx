@@ -30,11 +30,11 @@ const Image = styled.img`
 const Name = styled.h3`
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 8px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 0;
 `;
 
 
@@ -54,7 +54,7 @@ function TopTracksGrid({ topTracks }) {
           whileTap={{ scale: 0.95 }}
         >
           <h3>#{index + 1}</h3>
-          <Image src={track.album.images[0].url} alt={track.name} width="150" height="150"/>
+          <Image src={track.album.images[0].url} alt={track.name} width="125" height="125"/>
           <Name>{track.name}</Name>
           <Artist>By: {track.artists[0].name}</Artist>
         </Card>

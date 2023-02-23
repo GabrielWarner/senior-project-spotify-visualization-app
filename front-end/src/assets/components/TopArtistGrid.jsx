@@ -49,7 +49,7 @@ function TopArtistsGrid({ topArtists }) {
           whileTap={{ scale: 0.95 }}
         >
           <h3>#{index + 1}</h3>
-          <Image src={artist.images[0].url} alt={artist.name} width="150" height="150"/>
+          <Image src={artist.images[0].url} alt={artist.name} width="125" height="125"/>
           <Name>{artist.name}</Name>
           <Followers>Followers: {artist.followers.total.toLocaleString()}</Followers>
         </Card>
