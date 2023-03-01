@@ -147,7 +147,7 @@ const tableData = artistsData.map((artist, index) => ({
         }}
       />
       </div>
-
+{selectedGraph == 'genres' &&
       <Table
   initial={{ opacity: 0 }}
   animate={{ opacity: 1 }}
@@ -169,7 +169,7 @@ const tableData = artistsData.map((artist, index) => ({
     ))}
   </tbody>
 </Table>
-
+}
     </div>
   );
 }
