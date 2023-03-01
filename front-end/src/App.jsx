@@ -54,7 +54,6 @@ function App() {
       async function getSavedTracks() {
         const result = await spotifyApi.getMySavedTracks({ limit: 50 });
         setSavedTracks(result.items);
-        console.log(result.items);
       }
       setSpotifyToken(spotifyToken);
       spotifyApi.setAccessToken(spotifyToken);
@@ -63,6 +62,7 @@ function App() {
         .getMyTopArtists({ limit: 10, time_range: "long_term" })
         .then((data) => {
           setTopArtists(data);
+          console.log(data)
         })
         .catch((error) => console.error(error));
       spotifyApi
@@ -103,6 +103,7 @@ function App() {
       setTrackId(firstTrackId);
       const track = searchResults.tracks.items[0];
       setTrack(track);
+      console.log(track)
       // const getAudioFeaturesForTrack = await spotifyApi.getAudioFeaturesForTrack(trackId)
       // setAudioAnalysis(getAudioFeaturesForTrack)
     } catch (error) {

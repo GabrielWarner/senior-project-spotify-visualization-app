@@ -2,11 +2,21 @@ body {
   margin: 0;
 }
 
+.analysis-page-data {
+  margin: auto;
+  display: flex;
+  width: 100%;
+}
 
 .analysis-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 50vw;
+}
+
+.analysis-page{
+
 }
 
 .analysis-feature {
@@ -33,7 +43,7 @@ body {
 }
 
 .radar_container {
-
+  width: 850px;
 }
 
 .analysis-page {
